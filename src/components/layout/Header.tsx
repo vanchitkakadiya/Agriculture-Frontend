@@ -1,0 +1,718 @@
+import {useEffect, useRef, useState} from "react";
+
+import {
+    Link,
+    useNavigate,
+    useRouterState,
+} from "@tanstack/react-router";
+
+import {useTranslation} from "react-i18next";
+
+import {
+    ShoppingCart,
+    Menu,
+    X,
+    Leaf,
+    Globe,
+    User,
+    LogOut,
+} from "lucide-react";
+
+import i18n from "../../lib/i18n";
+
+import {useAuth} from "../../hooks/useAuth";
+import {useCart} from "../../context/CartContext.tsx";
+
+const Header = () => {
+    const {t} = useTranslation();
+
+    const navigate = useNavigate();
+
+    const {totalItems} =
+        useCart();
+
+    const {user, logout} = useAuth();
+
+    const pathname = useRouterState({
+        select: (state) => state.location.pathname,
+    });
+
+    const [open, setOpen] =
+        useState(false);
+
+    const [profileOpen, setProfileOpen] =
+        useState(false);
+
+    const profileRef =
+        useRef<HTMLDivElement>(null);
+
+
+    const navItems = [
+        {
+            to: "/",
+            label: t("nav.home"),
+        },
+        {
+            to: "/products",
+            label: t("nav.products"),
+        },
+        {
+            to: "/forum",
+            label: t("nav.community"),
+        },
+        {
+            to: "/blogs",
+            label: t("nav.blog"),
+        },
+        {
+            to: "/support",
+            label: t("nav.support"),
+        },
+    ];
+
+    // CLOSE DROPDOWN CLICK OUTSIDE
+    useEffect(() => {
+        const handleClickOutside = (
+            event: MouseEvent
+        ) => {
+            if (
+                profileRef.current &&
+                !profileRef.current.contains(
+                    event.target as Node
+                )
+            ) {
+                setProfileOpen(false);
+            }
+        };
+
+        document.addEventListener(
+            "mousedown",
+            handleClickOutside
+        );
+
+        return () => {
+            document.removeEventListener(
+                "mousedown",
+                handleClickOutside
+            );
+        };
+    }, []);
+
+    const changeLanguage = () => {
+        const newLang =
+            i18n.language === "en"
+                ? "hi"
+                : "en";
+
+        i18n.changeLanguage(newLang);
+
+        localStorage.setItem(
+            "lang",
+            newLang
+        );
+    };
+
+    const handleLogout =
+        async () => {
+            try {
+                await logout();
+
+                setProfileOpen(false);
+
+                navigate({
+                    to: "/login",
+                });
+            } catch (error) {
+                console.log(
+                    "Logout Error",
+                    error
+                );
+            }
+        };
+
+    const firstLetter =
+        user?.full_name?.charAt(0) ||
+        "U";
+
+    return (
+        <header
+            className="
+        sticky
+        top-0
+        z-50
+        bg-[#f5f3ed]/95
+        backdrop-blur-md
+        border-b
+        border-gray-200
+      "
+        >
+            <div
+                className="
+          max-w-[1440px]
+          mx-auto
+          h-16
+          lg:h-20
+          px-4
+          sm:px-5
+          lg:px-8
+          flex
+          items-center
+          justify-between
+          gap-3
+        "
+            >
+                {/* LOGO */}
+                <Link
+                    to="/"
+                    className="
+            flex
+            items-center
+            gap-2
+            min-w-fit
+          "
+                >
+                    <div
+                        className="
+              w-10
+              h-10
+              lg:w-11
+              lg:h-11
+              rounded-full
+              bg-green-700
+              text-white
+              flex
+              items-center
+              justify-center
+              shadow-md
+              shrink-0
+            "
+                    >
+                        <Leaf size={20}/>
+                    </div>
+
+                    <h1
+                        className="
+              text-xl
+              lg:text-2xl
+              font-bold
+              text-[#1d1d1d]
+              whitespace-nowrap
+            "
+                    >
+                        {t("mainTitle")}
+                    </h1>
+                </Link>
+
+                {/* DESKTOP NAV */}
+                <nav
+                    className="
+            hidden
+            md:flex
+            items-center
+            justify-center
+            flex-1
+            gap-1
+            lg:gap-3
+            mx-4
+            overflow-x-auto
+            scrollbar-hide
+          "
+                >
+                    {navItems.map((item) => {
+                        const isActive =
+                            pathname === item.to;
+
+                        return (
+                            <Link
+                                key={item.to}
+                                to={item.to}
+                                className={`
+                  whitespace-nowrap
+                  px-3
+                  lg:px-5
+                  py-2
+                  rounded-xl
+                  text-sm
+                  lg:text-base
+                  font-medium
+                  transition-all
+                  duration-200
+                  ${
+                                    isActive
+                                        ? "bg-[#dbe9bf] text-black"
+                                        : "text-gray-700 hover:bg-[#e8efd8]"
+                                }
+                `}
+                            >
+                                {item.label}
+                            </Link>
+                        );
+                    })}
+                </nav>
+
+                {/* RIGHT SIDE */}
+                <div
+                    className="
+            flex
+            items-center
+            gap-2
+            lg:gap-4
+            shrink-0
+          "
+                >
+                    {/* LANGUAGE */}
+                    <button
+                        onClick={
+                            changeLanguage
+                        }
+                        className="
+              hidden
+              md:flex
+              items-center
+              gap-1
+              text-gray-700
+              hover:text-green-700
+              transition
+              text-sm
+            "
+                    >
+                        <Globe size={18}/>
+
+                        <span
+                            className="
+                font-medium
+                uppercase
+              "
+                        >
+              {i18n.language ===
+              "en"
+                  ? "EN"
+                  : "हि"}
+            </span>
+                    </button>
+
+                    {/* CART */}
+                    <Link to="/cart">
+                        <div className="relative">
+
+                            <ShoppingCart/>
+
+                            {
+                                totalItems > 0 && (
+                                    <span
+                                        className="
+                    absolute
+                    -top-2
+                    -right-2
+                    w-5
+                    h-5
+                    rounded-full
+                    bg-red-500
+                    text-white
+                    text-xs
+                    flex
+                    items-center
+                    justify-center
+                "
+                                    >
+                    {
+                        totalItems
+                    }
+                </span>
+                                )}
+
+                        </div>
+                    </Link>
+
+                    {/* USER */}
+                    {user ? (
+                        <div
+                            className="relative"
+                            ref={profileRef}
+                        >
+                            <button
+                                onClick={() =>
+                                    setProfileOpen(
+                                        !profileOpen
+                                    )
+                                }
+                                className="
+                  w-10
+                  h-10
+                  rounded-full
+                  bg-green-700
+                  text-white
+                  font-bold
+                  text-base
+                  flex
+                  items-center
+                  justify-center
+                  shadow-md
+                  hover:bg-green-800
+                  transition
+                "
+                            >
+                                {firstLetter.toUpperCase()}
+                            </button>
+
+                            {/* DROPDOWN */}
+                            {profileOpen && (
+                                <div
+                                    className="
+                    absolute
+                    right-0
+                    mt-3
+                    w-64
+                    bg-white
+                    rounded-2xl
+                    shadow-2xl
+                    border
+                    border-gray-100
+                    overflow-hidden
+                  "
+                                >
+                                    {/* USER INFO */}
+                                    <div
+                                        className="
+                      px-5
+                      py-4
+                      border-b
+                      border-gray-100
+                    "
+                                    >
+                                        <h3
+                                            className="
+                        font-semibold
+                        text-[#1d1d1d]
+                        truncate
+                      "
+                                        >
+                                            {
+                                                user.full_name
+                                            }
+                                        </h3>
+
+                                        <p
+                                            className="
+                        text-sm
+                        text-gray-500
+                        mt-1
+                        truncate
+                      "
+                                        >
+                                            {
+                                                user.email
+                                            }
+                                        </p>
+                                    </div>
+
+                                    {/* PROFILE */}
+                                    <Link
+                                        to="/profile"
+                                        onClick={() =>
+                                            setProfileOpen(
+                                                false
+                                            )
+                                        }
+                                        className="
+                      flex
+                      items-center
+                      gap-3
+                      px-5
+                      py-3
+                      hover:bg-gray-50
+                      transition
+                    "
+                                    >
+                                        <User
+                                            size={18}
+                                        />
+
+                                        <span>
+                      {t(
+                          "nav.profile"
+                      )}
+                    </span>
+                                    </Link>
+
+                                    {/* LOGOUT */}
+                                    <button
+                                        onClick={
+                                            handleLogout
+                                        }
+                                        className="
+                      w-full
+                      flex
+                      items-center
+                      gap-3
+                      px-5
+                      py-3
+                      text-red-600
+                      hover:bg-red-50
+                      transition
+                    "
+                                    >
+                                        <LogOut
+                                            size={18}
+                                        />
+
+                                        <span>
+                      {t(
+                          "auth.logout"
+                      )}
+                    </span>
+                                    </button>
+                                </div>
+                            )}
+                        </div>
+                    ) : (
+                        <Link
+                            to="/login"
+                            className="
+                hidden
+                md:flex
+                items-center
+                gap-2
+                bg-green-700
+                hover:bg-green-800
+                transition
+                text-white
+                px-4
+                lg:px-5
+                py-2.5
+                rounded-xl
+                shadow-md
+                text-sm
+              "
+                        >
+                            <User size={18}/>
+
+                            {t("auth.login")}
+                        </Link>
+                    )}
+
+                    {/* MOBILE MENU BUTTON */}
+                    <button
+                        onClick={() =>
+                            setOpen(!open)
+                        }
+                        className="
+              md:hidden
+              text-gray-700
+            "
+                    >
+                        {open ? (
+                            <X size={28}/>
+                        ) : (
+                            <Menu size={28}/>
+                        )}
+                    </button>
+                </div>
+            </div>
+
+            {/* MOBILE MENU */}
+            {open && (
+                <div
+                    className="
+            md:hidden
+            border-t
+            border-gray-200
+            bg-[#f5f3ed]
+            px-4
+            py-5
+          "
+                >
+                    {/* NAV */}
+                    <nav
+                        className="
+              flex
+              flex-col
+              gap-2
+            "
+                    >
+                        {navItems.map((item) => {
+                            const isActive =
+                                pathname ===
+                                item.to;
+
+                            return (
+                                <Link
+                                    key={item.to}
+                                    to={item.to}
+                                    onClick={() =>
+                                        setOpen(false)
+                                    }
+                                    className={`
+                    px-4
+                    py-3
+                    rounded-xl
+                    font-medium
+                    transition
+                    ${
+                                        isActive
+                                            ? "bg-[#dbe9bf]"
+                                            : "hover:bg-[#e8efd8]"
+                                    }
+                  `}
+                                >
+                                    {item.label}
+                                </Link>
+                            );
+                        })}
+                    </nav>
+
+                    {/* MOBILE ACTIONS */}
+                    <div
+                        className="
+              mt-5
+              pt-5
+              border-t
+              border-gray-200
+              flex
+              flex-col
+              gap-4
+            "
+                    >
+                        {/* LANGUAGE */}
+                        <button
+                            onClick={
+                                changeLanguage
+                            }
+                            className="
+                flex
+                items-center
+                gap-2
+              "
+                        >
+                            <Globe size={18}/>
+
+                            {i18n.language ===
+                            "en"
+                                ? "EN"
+                                : "हि"}
+                        </button>
+
+                        {/* USER */}
+                        {user ? (
+                            <>
+                                <Link
+                                    to="/profile"
+                                    onClick={() =>
+                                        setOpen(false)
+                                    }
+                                    className="
+                    flex
+                    items-center
+                    gap-3
+                    bg-white
+                    px-4
+                    py-3
+                    rounded-xl
+                  "
+                                >
+                                    <div
+                                        className="
+                      w-10
+                      h-10
+                      rounded-full
+                      bg-green-700
+                      text-white
+                      flex
+                      items-center
+                      justify-center
+                      font-bold
+                    "
+                                    >
+                                        {firstLetter.toUpperCase()}
+                                    </div>
+
+                                    <div className="min-w-0">
+                                        <p
+                                            className="
+                        font-semibold
+                        truncate
+                      "
+                                        >
+                                            {
+                                                user.full_name
+                                            }
+                                        </p>
+
+                                        <p
+                                            className="
+                        text-sm
+                        text-gray-500
+                        truncate
+                      "
+                                        >
+                                            {
+                                                user.email
+                                            }
+                                        </p>
+                                    </div>
+                                </Link>
+
+                                <button
+                                    onClick={
+                                        handleLogout
+                                    }
+                                    className="
+                    flex
+                    items-center
+                    justify-center
+                    gap-2
+                    bg-red-600
+                    hover:bg-red-700
+                    text-white
+                    py-3
+                    rounded-xl
+                    transition
+                  "
+                                >
+                                    <LogOut
+                                        size={18}
+                                    />
+
+                                    {t(
+                                        "auth.logout"
+                                    )}
+                                </button>
+                            </>
+                        ) : (
+                            <Link
+                                to="/login"
+                                onClick={() =>
+                                    setOpen(false)
+                                }
+                                className="
+                  flex
+                  items-center
+                  justify-center
+                  gap-2
+                  bg-green-700
+                  hover:bg-green-800
+                  transition
+                  text-white
+                  px-5
+                  py-3
+                  rounded-xl
+                  shadow-md
+                "
+                            >
+                                <User
+                                    size={18}
+                                />
+
+                                {t(
+                                    "auth.login"
+                                )}
+                            </Link>
+                        )}
+                    </div>
+                </div>
+            )}
+        </header>
+    );
+};
+
+export default Header;
