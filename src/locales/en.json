@@ -132,7 +132,8 @@
     "unavailable": "Unavailable",
     "price": "Price",
     "left": "left",
-    "add": "Add"
+    "add": "Add",
+    "back": "Back to Products"
   },
   "forum_page": {
     "title": "Community Forum",
@@ -179,7 +180,8 @@
     "title": "Farming Blogs",
     "subtitle": "Farming tips, agriculture guides & sustainable practices.",
     "search_placeholder": "Search blogs...",
-    "no_blogs": "No blogs found."
+    "no_blogs": "No blogs found.",
+    "back": "Back to Blog"
   },
   "support_form": {
     "name": "Your Name",
@@ -216,7 +218,7 @@
     "checkout": "Proceed to Checkout",
     "security_text": "Secure checkout with encrypted payment protection.",
     "empty_title": "Your cart is empty",
-    "empty_description": "Looks like you haven’t added any products to your cart yet.",
+    "empty_description": "Start shopping to add items to your cart.",
     "continue_shopping": "Continue Shopping"
   }
 }

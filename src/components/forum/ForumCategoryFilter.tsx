@@ -12,11 +12,11 @@ type Props = {
 };
 
 const ForumCategoryFilter = ({
-    categories,
-    selected,
-    onChange,
-}: Props) => {
-    const { t } = useTranslation();
+                                 categories,
+                                 selected,
+                                 onChange,
+                             }: Props) => {
+    const {t} = useTranslation();
 
     return (
         <div
@@ -40,15 +40,25 @@ const ForumCategoryFilter = ({
                     font-medium
                     transition
                     ${
-                        selected === ""
-                            ? "bg-green-700 text-white"
-                            : "bg-white border"
-                    }
+                    selected === ""
+                        ? `
+                              bg-green-700
+                              text-white
+                              shadow-lg
+                            `
+                        : `
+                              bg-white
+                              border
+                              border-gray-200
+                              hover:border-green-600
+                              hover:text-green-700
+                            `
+                }
                 `}
             >
                 {t(
-                        "common.all"
-                    )}
+                    "common.all"
+                )}
             </button>
 
             {categories.map(
@@ -80,15 +90,25 @@ const ForumCategoryFilter = ({
                                 font-medium
                                 transition
                                 ${
-                                    active
-                                        ? "bg-green-700 text-white"
-                                        : "bg-white border"
-                                }
+                                active
+                                    ? `
+                              bg-green-700
+                              text-white
+                              shadow-lg
+                            `
+                                    : `
+                              bg-white
+                              border
+                              border-gray-200
+                              hover:border-green-600
+                              hover:text-green-700
+                            `
+                            }
                             `}
                         >
 
                             {
-                                getText(category,"name")
+                                getText(category, "name")
                             }
                         </button>
                     );

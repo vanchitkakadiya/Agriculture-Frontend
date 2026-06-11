@@ -2,6 +2,7 @@
 import {
     useTranslation,
 } from "react-i18next";
+import {getText} from "../../utils/language.ts";
 
 type Props = {
     blog: any;
@@ -11,17 +12,8 @@ const BlogDetailContent = ({
     blog,
 }: Props) => {
 
-    const { i18n } =
         useTranslation();
 
-    const isHindi =
-        i18n.language === "hi";
-
-    const content =
-        isHindi
-            ? blog.content_hi ||
-              blog.content_en
-            : blog.content_en;
 
     return (
         <div
@@ -38,7 +30,7 @@ const BlogDetailContent = ({
                 whitespace-pre-line
             "
             >
-                {content}
+                {getText(blog,"content")}
             </p>
         </div>
     );

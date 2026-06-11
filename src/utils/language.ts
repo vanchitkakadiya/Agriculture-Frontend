@@ -20,12 +20,40 @@ export const tr = (
     );
 };
 
+/*
+|--------------------------------------------------------------------------
+| GET TRANSLATED TEXT
+|--------------------------------------------------------------------------
+|
+| item      -> object
+| key       -> field name
+| nestedKey -> optional nested object field
+|
+|--------------------------------------------------------------------------
+|
+| Examples:
+|
+| getText(blog, "title")
+|
+| getText(blog, "summary")
+|
+| getText(blog, "category", "name")
+|
+| getText(blog, "category", "title")
+|
+|--------------------------------------------------------------------------
+*/
 
-// GET TRANSLATED TEXT
 export const getText = (
+
     item: any,
+
     key: string,
+
+    nestedKey?: string,
+
     fallback = ""
+
 ) => {
 
     if (!item) return fallback;
@@ -33,14 +61,52 @@ export const getText = (
     const lang =
         getCurrentLanguage();
 
-    console.log("lang", lang);
+    /*
+    |--------------------------------------------------------------------------
+    | NESTED OBJECT SUPPORT
+    |--------------------------------------------------------------------------
+    */
 
-    const localizedKey =
-        `${key}_${lang}`;
+    if (
+
+        nestedKey &&
+
+        typeof item[key] === "object" &&
+
+        item[key] !== null
+
+    ) {
+
+        return (
+
+            item[key]?.[
+                `${nestedKey}_${lang}`
+            ] ||
+
+            item[key]?.[
+                `${nestedKey}_en`
+            ] ||
+
+            fallback
+        );
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | NORMAL FIELD
+    |--------------------------------------------------------------------------
+    */
 
     return (
-        item?.[localizedKey] ||
-        item?.[`${key}_en`] ||
+
+        item?.[
+            `${key}_${lang}`
+        ] ||
+
+        item?.[
+            `${key}_en`
+        ] ||
+
         fallback
     );
 };

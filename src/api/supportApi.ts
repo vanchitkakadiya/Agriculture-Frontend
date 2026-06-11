@@ -8,7 +8,7 @@ import api from "../lib/axios.ts";
 
 export const sendSupportMessage =
     async (
-        payload: SupportContactPayload
+        data: SupportContactPayload,
     ) => {
 
         const formData =
@@ -16,43 +16,48 @@ export const sendSupportMessage =
 
         formData.append(
             "name",
-            payload.name
+            data.name
         );
 
         formData.append(
             "email",
-            payload.email
+            data.email
         );
 
         formData.append(
             "mobile_number",
-            payload.mobile_number
+            data.mobile_number
         );
 
         formData.append(
             "subject",
-            payload.subject
+            data.subject
         );
 
         formData.append(
             "message",
-            payload.message
+            data.message
         );
 
-        if (
-            payload.attachment
-        ) {
+        // FILE
+        if (data.attachment) {
 
             formData.append(
                 "attachment",
-                payload.attachment
+                data.attachment
             );
         }
 
         const response =
             await api.post(
-                "/api/support/contact/",
-                formData
+                "/contact/",
+                formData,
+                {
+                    headers: {
+                        "Content-Type":
+                            "multipart/form-data",
+                    },
+                }
             );
 
         return response.data;

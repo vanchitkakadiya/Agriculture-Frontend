@@ -41,7 +41,7 @@ const CartPage = () => {
         return (
             <div
                 className="
-                    min-h-[80vh]
+                    min-h-[40vh]
                     flex
                     items-center
                     justify-center
@@ -52,7 +52,7 @@ const CartPage = () => {
                 <div
                     className="
                         text-center
-                        max-w-md
+                        max-w-md pt-30
                     "
                 >
 
@@ -71,22 +71,15 @@ const CartPage = () => {
                     >
 
                         <ShoppingBag
-                            size={50}
                             className="
-                                text-green-700
+                                w-10 h-10 text-gray-400
                             "
                         />
 
                     </div>
 
                     <h2
-                        className="
-                            text-3xl
-                            md:text-4xl
-                            font-bold
-                            mb-4
-                        "
-                    >
+                        className="text-2xl font-serif font-bold text-gray-900 mb-2">
                         {tr(
                             "cart.empty_title"
                         )}
@@ -151,7 +144,7 @@ const CartPage = () => {
                     md:items-center
                     md:justify-between
                     gap-4
-                    mb-10
+                    mb-10 pt-20
                 "
             >
 
@@ -249,8 +242,8 @@ const CartPage = () => {
                                         }
                                         alt={
                                             getText(
-                                            item,
-                                            "product_title"
+                                                item,
+                                                "product_title"
                                             )
                                         }
                                         className="
@@ -294,9 +287,9 @@ const CartPage = () => {
                                             >
                                                 {
                                                     getText(
-                                            item,
-                                            "product_title"
-                                            )
+                                                        item,
+                                                        "product_title"
+                                                    )
                                                 }
                                             </h2>
 
@@ -603,7 +596,8 @@ const CartPage = () => {
                         </div>
 
                         {/* CHECKOUT */}
-                        <button
+                        <Link
+                            to="/checkout"
                             className="
                                 w-full
                                 bg-green-700
@@ -629,7 +623,7 @@ const CartPage = () => {
                                 size={20}
                             />
 
-                        </button>
+                        </Link>
 
                         {/* SECURITY */}
                         <p

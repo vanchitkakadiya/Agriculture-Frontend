@@ -66,6 +66,9 @@ export interface FeaturedProduct {
     category_name: string;
 
     is_in_stock: boolean;
+    stock_quantity: number;
+
+    is_active: boolean;
 }
 
 export interface FarmingTip {

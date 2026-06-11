@@ -54,7 +54,7 @@ const ContactForm = () => {
         setForm({
             ...form,
             [e.target.name]:
-                e.target.value,
+            e.target.value,
         });
     };
 
@@ -74,44 +74,56 @@ const ContactForm = () => {
 
             setLoading(true);
 
-            await sendSupportMessage(
+            const response = await sendSupportMessage(
                 {
                     ...form,
                     attachment,
                 }
             );
 
-            setSuccess(
-                tr(
-                    "support_form.success"
-                )
+            console.log(
+                "SUPPORT RESPONSE:",
+                response
             );
 
-            setForm({
-                name: "",
-                email: "",
-                mobile_number:
-                    "",
-                subject: "",
-                message: "",
-            });
+            // SUCCESS
+            if (response?.success) {
 
-            setAttachment(
-                null
+                setSuccess(
+                    response.message
+                );
+
+                setForm({
+                    name: "",
+                    email: "",
+                    mobile_number: "",
+                    subject: "",
+                    message: "",
+                });
+
+                setAttachment(null);
+
+                return;
+            }
+
+            // FAILED
+            setError(
+                response?.message ||
+                tr("support_form.error")
             );
 
         } catch (err: any) {
 
-            console.error(err);
-
-            setError(
-                err?.response?.data
-                    ?.message ||
-                    tr(
-                        "support_form.error"
-                    )
+            console.error(
+                "SUPPORT ERROR:",
+                err
             );
 
+            setError(
+                err?.response?.data?.message ||
+                err?.message ||
+                tr("support_form.error")
+            );
         } finally {
 
             setLoading(false);
@@ -458,11 +470,11 @@ const ContactForm = () => {
             >
                 {loading
                     ? tr(
-                          "support_form.sending"
-                      )
+                        "support_form.sending"
+                    )
                     : tr(
-                          "support_form.send_message"
-                      )}
+                        "support_form.send_message"
+                    )}
             </button>
 
         </form>

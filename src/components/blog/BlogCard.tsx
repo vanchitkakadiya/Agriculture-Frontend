@@ -10,6 +10,7 @@ import {
 
 import { useTranslation } from "react-i18next";
 import type {BlogPost} from "../../types/blog.ts";
+import {getText} from "../../utils/language.ts";
 
 type Props = {
     blog: BlogPost;
@@ -19,23 +20,8 @@ const BlogCard = ({
     blog,
 }: Props) => {
 
-    const { i18n } =
         useTranslation();
 
-    const isHindi =
-        i18n.language === "hi";
-
-    const title =
-        isHindi
-            ? blog.title_hi ||
-              blog.title_en
-            : blog.title_en;
-
-    const summary =
-        isHindi
-            ? blog.summary_hi ||
-              blog.summary_en
-            : blog.summary_en;
 
     return (
         <div
@@ -63,7 +49,10 @@ const BlogCard = ({
                         blog.featured_image ||
                         "/placeholder-blog.jpg"
                     }
-                    alt={title}
+                    alt= {getText(
+                                blog,
+                                "title",
+                            )}
                     className="
                     w-full
                     h-[240px]
@@ -95,9 +84,10 @@ const BlogCard = ({
                         rounded-full
                     "
                     >
-                        {
-                            blog.category_name
-                        }
+                        {getText(
+                                blog,
+                                "category","name"
+                            )}
                     </span>
 
                 </div>
@@ -120,7 +110,10 @@ const BlogCard = ({
                         transition
                     "
                     >
-                        {title}
+                        {getText(
+                                blog,
+                                "title",
+                            )}
                     </h2>
 
                 </Link>
@@ -131,7 +124,10 @@ const BlogCard = ({
                     line-clamp-3
                 "
                 >
-                    {summary}
+                    {getText(
+                                blog,
+                                "summary",
+                            )}
                 </p>
 
                 <div

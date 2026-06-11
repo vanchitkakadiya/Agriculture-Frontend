@@ -177,7 +177,6 @@ const ForumListPage = () => {
         <div
             className="
             min-h-screen
-            bg-[#f7f5ed]
             px-4
             md:px-6
             py-10
@@ -188,6 +187,7 @@ const ForumListPage = () => {
                 className="
                 max-w-7xl
                 mx-auto
+                pt-20
             "
             >
 
@@ -212,14 +212,7 @@ const ForumListPage = () => {
                     >
 
                         <h1
-                            className="
-                            text-3xl
-                            sm:text-4xl
-                            lg:text-5xl
-                            font-bold
-                            mb-3
-                            text-gray-900
-                        "
+                            className="mt-2 text-4xl sm:text-5xl font-serif font-bold text-gray-900"
                         >
                             {t(
                                 "forum_page.title"

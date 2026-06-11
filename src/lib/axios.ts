@@ -3,7 +3,8 @@
 import axios from "axios";
 
 const api = axios.create({
-    baseURL: "http://192.168.1.29:8000/api",
+    // baseURL: "http://192.168.1.29:8000/api",
+    baseURL: import.meta.env.VITE_API_BASE_URL,
     headers: {
         "Content-Type": "application/json",
     },
@@ -36,7 +37,6 @@ api.interceptors.request.use(
 // RESPONSE INTERCEPTOR
 // ==============================
 api.interceptors.response.use(
-
     (response) => response,
 
     async (error) => {
@@ -70,10 +70,10 @@ api.interceptors.response.use(
                 // REFRESH API CALL
                 const refreshResponse =
                     await axios.post(
-                        "http://192.168.1.29:8000/api/auth/token/refresh/",
+                        `${import.meta.env.VITE_API_BASE_URL}/auth/token/refresh/`,
                         {
                             refresh:
-                                refreshToken,
+                            refreshToken,
                         }
                     );
 

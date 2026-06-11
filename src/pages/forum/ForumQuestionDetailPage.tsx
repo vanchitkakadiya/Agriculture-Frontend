@@ -434,7 +434,6 @@ const ForumQuestionDetailPage =
             <div
                 className="
                 min-h-screen
-                bg-[#f7f5ed]
                 py-10
                 px-4
             "
@@ -444,6 +443,7 @@ const ForumQuestionDetailPage =
                     className="
                     max-w-5xl
                     mx-auto
+                    pt-20
                 "
                 >
 

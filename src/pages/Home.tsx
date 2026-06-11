@@ -63,11 +63,7 @@ const Home = () => {
 
     return (
         <div
-            className="
-            bg-[#f5f3ed]
-            min-h-screen
-        "
-        >
+            className="min-h-screen ">
 
             <HeroSection
                 content={data.content}
@@ -95,16 +91,7 @@ const Home = () => {
             />
 
             <div
-                className="
-                grid
-                grid-cols-1
-                lg:grid-cols-2
-                gap-10
-                px-4
-                md:px-8
-                py-20
-            "
-            >
+                className="grid grid-cols-1 lg:grid-cols-2 gap-10 px-4 md:px-8 lg:px-16 py-20 max-w-7xl mx-auto">
                 {/*Blog section*/}
                 <FarmingTipsSection
                     title={

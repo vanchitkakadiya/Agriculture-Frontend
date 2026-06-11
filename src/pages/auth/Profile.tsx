@@ -128,7 +128,7 @@ const Profile = () => {
         setForm({
             ...form,
             [e.target.name]:
-                e.target.value,
+            e.target.value,
         });
 
         /* CLEAR FIELD ERROR */
@@ -268,14 +268,12 @@ const Profile = () => {
 
     return (
         <div className="
-            min-h-screen
-            bg-[#f5f3ed]
-            py-10
+            min-h-screen py-10
             px-4
         ">
             <div className="
                 max-w-4xl
-                mx-auto
+                mx-auto pt-20
             ">
 
                 <div className="

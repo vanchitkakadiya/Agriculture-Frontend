@@ -33,7 +33,7 @@ import {
 
 const ProductsPage = () => {
 
-    const { t } = useTranslation();
+    const {t} = useTranslation();
 
     const [products, setProducts] =
         useState<Product[]>([]);
@@ -199,20 +199,14 @@ const ProductsPage = () => {
                 lg:justify-between
                 gap-6
                 mb-10
+                pt-20
             "
             >
 
                 <div>
 
                     <h1
-                        className="
-                        text-3xl
-                        sm:text-4xl
-                        lg:text-5xl
-                        font-bold
-                        text-gray-900
-                        mb-3
-                    "
+                        className="mt-2 text-4xl sm:text-5xl font-serif font-bold text-gray-900"
                     >
                         {t(
                             "products_page.title"
@@ -395,33 +389,33 @@ const ProductsPage = () => {
                 {loading &&
                 products.length === 0
                     ? Array.from({
-                          length: 8,
-                      }).map(
-                          (_, index) => (
-                              <ProductSkeleton
-                                  key={index}
-                              />
-                          )
-                      )
+                        length: 8,
+                    }).map(
+                        (_, index) => (
+                            <ProductSkeleton
+                                key={index}
+                            />
+                        )
+                    )
                     : products.map(
-                          (product) => (
-                              <ProductCard
-                                  key={
-                                      product.id
-                                  }
-                                  product={
-                                      product
-                                  }
-                              />
-                          )
-                      )}
+                        (product) => (
+                            <ProductCard
+                                key={
+                                    product.id
+                                }
+                                product={
+                                    product
+                                }
+                            />
+                        )
+                    )}
 
             </div>
 
             {/* EMPTY STATE */}
             {!loading &&
                 products.length ===
-                    0 && (
+                0 && (
                     <div
                         className="
                         py-20

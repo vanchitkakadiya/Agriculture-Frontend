@@ -1,9 +1,8 @@
 // src/components/home/AboutMissionSection.tsx
 
 import {
-    Leaf,
     Target,
-    Sprout,
+     Eye,
 } from "lucide-react";
 
 import type {
@@ -13,7 +12,6 @@ import type {
 
 import {
     getText,
-    tr,
 } from "../../utils/language";
 import {useTranslation} from "react-i18next";
 
@@ -23,15 +21,15 @@ type Props = {
 };
 
 const AboutMissionSection = ({
-    content,
-    missionVision,
-}: Props) => {
+                                 content,
+                                 missionVision,
+                             }: Props) => {
 
     // AUTO RE-RENDER ON LANGUAGE CHANGE
     useTranslation();
 
     return (
-        <section
+        /*<section
             className="
                 py-20
                 relative
@@ -39,7 +37,7 @@ const AboutMissionSection = ({
             "
         >
 
-            {/* BACKGROUND DECOR */}
+            {/!* BACKGROUND DECOR *!/}
             <div
                 className="
                     absolute
@@ -77,7 +75,7 @@ const AboutMissionSection = ({
                 "
             >
 
-                {/* SECTION HEADER */}
+                {/!* SECTION HEADER *!/}
                 <div
                     className="
                         text-center
@@ -137,7 +135,7 @@ const AboutMissionSection = ({
 
                 </div>
 
-                {/* GRID */}
+                {/!* GRID *!/}
                 <div
                     className="
                         grid
@@ -147,7 +145,7 @@ const AboutMissionSection = ({
                     "
                 >
 
-                    {/* ABOUT CARD */}
+                    {/!* ABOUT CARD *!/}
                     <div
                         className="
                             group
@@ -164,7 +162,7 @@ const AboutMissionSection = ({
                         "
                     >
 
-                        {/* ICON */}
+                        {/!* ICON *!/}
                         <div
                             className="
                                 w-16
@@ -187,7 +185,7 @@ const AboutMissionSection = ({
 
                         </div>
 
-                        {/* TITLE */}
+                        {/!* TITLE *!/}
                         <h3
                             className="
                                 text-3xl
@@ -202,7 +200,7 @@ const AboutMissionSection = ({
                             )}
                         </h3>
 
-                        {/* DESCRIPTION */}
+                        {/!* DESCRIPTION *!/}
                         <p
                             className="
                                 text-gray-600
@@ -216,7 +214,7 @@ const AboutMissionSection = ({
                             )}
                         </p>
 
-                        {/* DECOR */}
+                        {/!* DECOR *!/}
                         <div
                             className="
                                 absolute
@@ -231,7 +229,7 @@ const AboutMissionSection = ({
 
                     </div>
 
-                    {/* MISSION CARD */}
+                    {/!* MISSION CARD *!/}
                     <div
                         className="
                             relative
@@ -247,7 +245,7 @@ const AboutMissionSection = ({
                         "
                     >
 
-                        {/* ICON */}
+                        {/!* ICON *!/}
                         <div
                             className="
                                 w-16
@@ -271,7 +269,7 @@ const AboutMissionSection = ({
 
                         </div>
 
-                        {/* TITLE */}
+                        {/!* TITLE *!/}
                         <h3
                             className="
                                 text-3xl
@@ -286,7 +284,7 @@ const AboutMissionSection = ({
                             )}
                         </h3>
 
-                        {/* DESCRIPTION */}
+                        {/!* DESCRIPTION *!/}
                         <p
                             className="
                                 text-gray-700
@@ -300,7 +298,7 @@ const AboutMissionSection = ({
                             )}
                         </p>
 
-                        {/* DECOR */}
+                        {/!* DECOR *!/}
                         <div
                             className="
                                 absolute
@@ -316,7 +314,7 @@ const AboutMissionSection = ({
 
                     </div>
 
-                    {/* VISION CARD */}
+                    {/!* VISION CARD *!/}
                     <div
                         className="
                             relative
@@ -332,7 +330,7 @@ const AboutMissionSection = ({
                         "
                     >
 
-                        {/* ICON */}
+                        {/!* ICON *!/}
                         <div
                             className="
                                 w-16
@@ -356,7 +354,7 @@ const AboutMissionSection = ({
 
                         </div>
 
-                        {/* TITLE */}
+                        {/!* TITLE *!/}
                         <h3
                             className="
                                 text-3xl
@@ -371,7 +369,7 @@ const AboutMissionSection = ({
                             )}
                         </h3>
 
-                        {/* DESCRIPTION */}
+                        {/!* DESCRIPTION *!/}
                         <p
                             className="
                                 text-gray-700
@@ -385,7 +383,7 @@ const AboutMissionSection = ({
                             )}
                         </p>
 
-                        {/* DECOR */}
+                        {/!* DECOR *!/}
                         <div
                             className="
                                 absolute
@@ -405,6 +403,83 @@ const AboutMissionSection = ({
 
             </div>
 
+        </section>*/
+
+        <section className="py-24">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                    {/* Image collage */}
+                    <div className="relative h-[480px]">
+                        <img
+                            src="https://images.pexels.com/photos/1084543/pexels-photo-1084543.jpeg?auto=compress&cs=tinysrgb&w=600"
+                            alt="Farmers at work"
+                            className="absolute top-0 left-0 w-3/5 h-3/5 object-cover rounded-2xl shadow-xl"
+                        />
+                        <img
+                            src="https://images.pexels.com/photos/1301856/pexels-photo-1301856.jpeg?auto=compress&cs=tinysrgb&w=600"
+                            alt="Fertile farmland"
+                            className="absolute bottom-0 right-0 w-3/5 h-3/5 object-cover rounded-2xl shadow-xl"
+                        />
+                        <div
+                            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24 bg-green-600 rounded-2xl flex items-center justify-center shadow-xl z-10">
+              <span
+                  className="text-white text-center text-xs font-semibold leading-tight px-2 text-balance text-center">
+                Est.<br/>2019
+              </span>
+                        </div>
+                        {/* Decorative blob */}
+                        <div className="absolute -bottom-4 -left-4 w-32 h-32 bg-earth-100 rounded-full -z-10"/>
+                    </div>
+
+                    {/* Text content */}
+                    <div>
+                        <span className="text-green-700 text-sm font-semibold uppercase tracking-widest">
+                          {getText(content, "about_title")}
+                        </span>
+                        <h2 className="mt-3 text-4xl lg:text-5xl font-serif font-bold text-gray-900 leading-tight mb-6">
+                            Built by Farmers,<br/>
+                            <span className="text-green-700">For Farmers</span>
+                        </h2>
+                        <p className="text-gray-600 leading-relaxed mb-10">
+                            {getText(content, "about")}
+                        </p>
+
+                        {/* Mission & Vision cards */}
+                        <div className="space-y-4">
+                            <div className="flex gap-4 p-5 bg-green-50 rounded-xl border border-green-100">
+                                <div
+                                    className="w-10 h-10 bg-green-600 rounded-lg flex items-center justify-center flex-shrink-0">
+                                    <Target className="w-5 h-5 text-white"/>
+                                </div>
+                                <div>
+                                    <h4 className="font-semibold text-gray-900 mb-1">
+                                        {getText(missionVision, "mission_title")}
+                                    </h4>
+                                    <p className="text-sm text-gray-600 leading-relaxed">
+                                        {getText(missionVision, "mission")}
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div className="flex gap-4 p-5 bg-[#FAF8F3] rounded-xl border border-[#F2EDE0]">
+                                <div
+                                    className="w-10 h-10 bg-[#8B6B3E] rounded-lg flex items-center justify-center flex-shrink-0">
+                                    <Eye className="w-5 h-5 text-white"/>
+                                </div>
+                                <div>
+                                    <h4 className="font-semibold text-gray-900 mb-1">
+                                        {getText(missionVision, "vision_title")}
+                                    </h4>
+                                    <p className="text-sm text-gray-600 leading-relaxed">
+                                        {getText(missionVision, "vision")}
+                                    </p>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
     );
 };

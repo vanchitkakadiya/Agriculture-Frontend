@@ -142,7 +142,7 @@ const AskQuestionPage = () => {
         "
         >
 
-            <div className="mb-10">
+            <div className="mb-10 pt-20">
 
                 <h1
                     className="

@@ -5,6 +5,7 @@ import {
 } from "react";
 
 import {
+    Link,
     useParams,
 } from "@tanstack/react-router";
 
@@ -17,16 +18,14 @@ import BlogDetailContent from "../../components/blog/BlogDetailContent";
 import {
     useTranslation,
 } from "react-i18next";
+import {ArrowLeft} from "lucide-react";
+import {getText, tr} from "../../utils/language.ts";
 
 const BlogDetailPage = () => {
 
-    const { i18n } =
-        useTranslation();
+    useTranslation();
 
-    const isHindi =
-        i18n.language === "hi";
-
-    const { id } =
+    const {id} =
         useParams({
             from: "/blogs/$id",
         });
@@ -55,7 +54,7 @@ const BlogDetailPage = () => {
 
             } catch (
                 error
-            ) {
+                ) {
 
                 console.error(
                     error
@@ -87,7 +86,7 @@ const BlogDetailPage = () => {
     if (
         !blog ||
         blog.status !==
-            "published"
+        "published"
     ) {
 
         return (
@@ -101,43 +100,66 @@ const BlogDetailPage = () => {
         <div
             className="
             min-h-screen
-            bg-[#f7f5ed]
-            pb-20
+            py-20
         "
         >
 
-            <img
-                src={
-                    blog.featured_image ||
-                    "/placeholder-blog.jpg"
-                }
-                alt=""
-                className="
-                w-full
-                h-[420px]
-                object-cover
-            "
-            />
+            <div className="max-w-3xl mx-auto px-4 sm:px-6">
 
-            <div
-                className="
-                max-w-4xl
+                {/* BACK */}
+                <Link
+                    to="/blogs"
+                    className="
+                        inline-flex
+                        items-center
+                        gap-2
+                        text-green-700
+                        font-semibold
+                        hover:underline
+                        mb-6
+                    "
+                >
+
+                    <ArrowLeft
+                        size={18}
+                    />
+
+                    {tr(
+                        "blog_page.back"
+                    )}
+
+                </Link>
+
+                <div className="relative rounded-2xl overflow-hidden mb-8">
+                    <img
+                        src={
+                            blog.featured_image ||
+                            "/placeholder-blog.jpg"
+                        }
+                        alt=""
+                        className="w-full h-64 sm:h-80 object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"/>
+                </div>
+
+                <div
+                    className="
                 mx-auto
                 px-6
                 mt-10
             "
-            >
+                >
 
-                <div
-                    className="
+                    <div
+                        className="
                     flex
                     items-start
                     justify-between
                     gap-4
                 "
-                >
+                    >
 
-                    <div>
+                        <div>
 
                         <span
                             className="
@@ -147,72 +169,67 @@ const BlogDetailPage = () => {
                             px-4
                             py-1
                             rounded-full
-                            text-sm
+                            text-xs
                             font-semibold
                             mb-4
                         "
                         >
-                            {
-                                isHindi
-                                    ? blog
-                                          .category
-                                          ?.name_hi
-                                    : blog
-                                          .category
-                                          ?.name_en
-                            }
+
+                              {getText(
+                                  blog,
+                                  "category", "name"
+                              )}
                         </span>
 
-                        <h1
-                            className="
-                            text-5xl
-                            font-bold
-                            mb-4
+                            <h1
+                                className="
+                           text-3xl sm:text-4xl font-serif font-bold text-gray-900 leading-tight mb-4
                         "
-                        >
-                            {isHindi
-                                ? blog.title_hi ||
-                                  blog.title_en
-                                : blog.title_en}
-                        </h1>
+                            >
+                                {getText(
+                                    blog,
+                                    "title"
+                                )}
+                            </h1>
 
-                        <div
-                            className="
+                            <div
+                                className="
                             flex
                             gap-4
                             text-gray-500
+                            text-sm
                         "
-                        >
+                            >
 
-                            <p>
-                                {new Date(
-                                    blog.published_at
-                                ).toLocaleDateString()}
-                            </p>
+                                <p>
+                                    {new Date(
+                                        blog.published_at
+                                    ).toLocaleDateString()}
+                                </p>
 
-                            <p>
-                                By{" "}
-                                {
-                                    blog.author_name
-                                }
-                            </p>
+                                <p className="text-sm font-medium text-gray-900">
+                                    By{" "}
+                                    {
+                                        blog.author_name
+                                    }
+                                </p>
+
+                            </div>
 
                         </div>
 
                     </div>
 
+                    <div className="mt-10">
+
+                        <BlogDetailContent
+                            blog={blog}
+                        />
+
+                    </div>
+
                 </div>
-
-                <div className="mt-10">
-
-                    <BlogDetailContent
-                        blog={blog}
-                    />
-
-                </div>
-
             </div>
-
         </div>
     );
 };

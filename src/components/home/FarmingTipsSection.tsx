@@ -10,7 +10,6 @@ import {
 
 import {
     ArrowRight,
-    Clock3,
     Tag,
 } from "lucide-react";
 
@@ -686,22 +685,6 @@ const FarmingTipsSection =
                                         text-gray-400
                                     "
                                     >
-
-                                        <div
-                                            className="
-                                            flex
-                                            items-center
-                                            gap-1
-                                        "
-                                        >
-
-                                            <Clock3
-                                                size={14}
-                                            />
-
-                                            7 min
-
-                                        </div>
 
                                         <span>
                                             {new Date(

@@ -14,12 +14,12 @@ type Props = {
 };
 
 const BlogCategoryFilter = ({
-    categories,
-    selected,
-    onChange,
-}: Props) => {
+                                categories,
+                                selected,
+                                onChange,
+                            }: Props) => {
 
-    const { i18n } =
+    const {i18n} =
         useTranslation();
 
     return (
@@ -42,10 +42,20 @@ const BlogCategoryFilter = ({
                     font-medium
                     transition
                     ${
-                        selected === ""
-                            ? "bg-green-700 text-white"
-                            : "bg-[#e8e6cf]"
-                    }
+                    selected === ""
+                        ? `
+                              bg-green-700
+                              text-white
+                              shadow-lg
+                            `
+                        : `
+                              bg-white
+                              border
+                              border-gray-200
+                              hover:border-green-600
+                              hover:text-green-700
+                            `
+                }
                 `}
             >
                 All
@@ -75,8 +85,18 @@ const BlogCategoryFilter = ({
                             String(
                                 category.id
                             )
-                                ? "bg-green-700 text-white"
-                                : "bg-[#e8e6cf]"
+                                ? `
+                              bg-green-700
+                              text-white
+                              shadow-lg
+                            `
+                            : `
+                              bg-white
+                              border
+                              border-gray-200
+                              hover:border-green-600
+                              hover:text-green-700
+                            `
                         }
                     `}
                     >

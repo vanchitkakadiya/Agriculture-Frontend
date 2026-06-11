@@ -1,6 +1,7 @@
 //pages/product/ProductDetailPage.tsx
 
 import {
+    Link,
     useParams,
 } from "@tanstack/react-router";
 
@@ -10,6 +11,7 @@ import {
 } from "react";
 
 import {
+    ArrowLeft,
     Minus,
     Plus,
     ShoppingCart,
@@ -28,7 +30,7 @@ import type {
     Product,
 } from "../../types/product";
 import {useCart} from "../../context/CartContext.tsx";
-import {getText} from "../../utils/language.ts";
+import {getText, tr} from "../../utils/language.ts";
 
 const ProductDetailPage =
     () => {
@@ -240,9 +242,33 @@ const ProductDetailPage =
                 mx-auto
                 px-4
                 sm:px-6
-                py-10
+                py-30
             "
             >
+
+                {/* BACK */}
+                <Link
+                    to="/products"
+                    className="
+                        inline-flex
+                        items-center
+                        gap-2
+                        text-green-700
+                        font-semibold
+                        hover:underline
+                        mb-6
+                    "
+                >
+
+                    <ArrowLeft
+                        size={18}
+                    />
+
+                    {tr(
+                        "products_page.back"
+                    )}
+
+                </Link>
 
                 <div
                     className="
@@ -251,6 +277,7 @@ const ProductDetailPage =
                     gap-12
                 "
                 >
+
 
                     {/* LEFT */}
                     <div>
@@ -528,8 +555,8 @@ const ProductDetailPage =
         "
         >
                {t(
-                                    "products_page.quantity"
-                                )}
+                   "products_page.quantity"
+               )}
         </span>
 
                                 <span
@@ -539,8 +566,8 @@ const ProductDetailPage =
         "
                                 >
               {t(
-                                    "products_page.max"
-                                )}:
+                  "products_page.max"
+              )}:
                                     {" "}
                                     {maxQuantity}
         </span>
@@ -635,8 +662,8 @@ const ProductDetailPage =
     "
                             >
                                 {t(
-                                "products_page.total"
-                            )}:
+                                    "products_page.total"
+                                )}:
                                 {" "}
                                 <span
                                     className="
@@ -693,12 +720,12 @@ const ProductDetailPage =
                             />
 
                             {outOfStock
-                            ? t(
-                                  "products_page.out_of_stock"
-                              )
-                            : t(
-                                  "products_page.add_to_cart"
-                              )}
+                                ? t(
+                                    "products_page.out_of_stock"
+                                )
+                                : t(
+                                    "products_page.add_to_cart"
+                                )}
 
                         </button>
 
